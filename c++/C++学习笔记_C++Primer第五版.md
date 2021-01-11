@@ -1,4 +1,6 @@
-> 主要参考资料为[C++ Primer 中文版（第 5 版）](https://book.douban.com/subject/25708312/), 环境为: centos7.6、vscode、g++4.8
+> 主要参考资料为[C++ Primer 中文版（第 5 版）](https://book.douban.com/subject/25708312/);
+
+> 环境为: centos7.6、gcc-7.5.0、g++7.5.0、gdb-10.1、vscode(remote-containers) (https://github.com/researchlab/dbp/tree/master/c%2B%2B)
 
 # 第一章 开始
 
