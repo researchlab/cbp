@@ -9,3 +9,5 @@ Best Coding Practices (CBP™) along with the detailed samples.
 
 - [ ] java
 
+- [x] php
+
