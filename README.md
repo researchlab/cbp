@@ -1,7 +1,7 @@
 # Coding Best Practices (CBP™)  
 
 
-Best Coding Practices (CBP™) along with the detailed samples.
+Best Coding Practices along with the detailed samples.
 
 - [x] c++ 
 
