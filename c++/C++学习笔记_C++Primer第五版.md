@@ -177,6 +177,17 @@ const int i = get_size();
 - 除非特别说明，const对象默认为文件的局部变量​，其它文件访问，必须在指定const前加extern。
 - [const int、const int *、int *cosnt、const int * const、const int &的区别](https://blog.csdn.net/itworld123/article/details/78967080)
 
+```c++
+int age = 80;
+const int *pt = &age; // a pointer to const int  const 只能防止修改pt 指向的值 (即不能修改age=80), 而不能防止修改pt的值, 如果pt = &sage;
+
+int sloth =3;
+int *const finger = &sloth; // a const pointer to int 
+// const 不能给finger 赋新值, 即finger只能指向sloth, 但是可以通过finger 修改sloth的值;
+
+double trouble = 3.0E2.0;
+const double * const stick = &trouble; // stick 只能指向trouble, stick 不能用来修改trouble 的值; 
+```
 ### 11. constexpr和常量表达式
 
 ```c++
@@ -660,6 +671,14 @@ void ff(unsigned int)//重载函数2
 void (*pf1)(unsigned int )=ff;
 ```
 
+```c++
+double (*pf) (int); // pf points to a function that returns double 
+double *pf (int); // pf() a function that returns a pointer-to-double 
+
+double pam(int);
+doube (*pf) (int);
+pf = pam; // pf now points to the pam() function
+```
 # 第7章 类
 
 ```c++
