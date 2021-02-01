@@ -7,7 +7,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	"github.com/researchlab/rpc-notes/grpc/basic/customer"
+	"github.com/researchlab/cbp/rpc/grpc/basic/customer"
 )
 
 // server is used to implement customer.CustomerServer

@@ -6,7 +6,7 @@ import (
 	"net/rpc"
 	"net/rpc/jsonrpc"
 
-	"github.com/researchlab/rpc-notes/jsonrpc/service"
+	"github.com/researchlab/cbp/rpc/jsonrpc/service"
 )
 
 func main() {

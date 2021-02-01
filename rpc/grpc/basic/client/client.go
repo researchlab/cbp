@@ -7,7 +7,7 @@ import (
 
 	"google.golang.org/grpc"
 
-	pb "github.com/researchlab/rpc-notes/grpc/basic/customer"
+	pb "github.com/researchlab/cbp/rpc/grpc/basic/customer"
 )
 
 // createCustomer calls the RPC method CreateCustomer of CustomerServer
