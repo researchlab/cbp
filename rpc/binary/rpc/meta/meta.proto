@@ -1,0 +1,39 @@
+syntax = "proto2";
+
+//========================================================================
+//
+// RPC message 
+//
+//========================================================================
+
+message SetupTaskRequest {
+	required string TaskID = 1;
+	required string HostOsType = 2;
+	required string HostOsName = 3;
+}
+
+message SetupTaskResponse {
+	required int32  ErrCode = 1;
+	required string ErrMsg = 2;
+}
+
+message RemoveTaskRequest {
+	required string TaskID = 1;
+	required string UserName = 2;
+	required string Passwd = 3;
+}
+
+message RemoveTaskResponse {
+	required int32  ErrCode = 1;
+	required string ErrMsg = 2;
+}
+
+// Code: 0(snapshot size),      		CodeValue: "size in bytes",          h=>t
+// Code: 1(migrate device error),		CodeValue: "error msg",	             h=>t
+// Code: 100(progress),         		CodeValue: "80",                     t=>m
+// Code: 300(start v2v),        		CodeValue: "uuid",                   t=>m
+// Code: 301(finish v2v),       		CodeValue: "uuid",                   t=>m
+
+// data format, ~10M once
+//0-----------------8-----------------12----------520-----------------528-------..............
+//  volume offset      data len(508)       data        volume offset
