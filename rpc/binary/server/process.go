@@ -16,6 +16,7 @@ func (h *RPCHandler) processSetupTaskRequest(buf []byte) (*SetupTaskResponse, er
 	}
 
 	h.Logger.Info("SetupTaskRequest received", zap.String("TaskID", req.TaskID))
+	h.Logger.Info("SetupTaskRequest received", zap.Any("request body", req))
 
 	resp := &SetupTaskResponse{
 		ErrCode: 0,
