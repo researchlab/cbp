@@ -18,11 +18,20 @@ const (
 )
 
 const (
-	TypeSetupTaskRequest byte = iota + 1
-	TypeSetupTaskResponse
+	TypeCreateBackupRequest byte = iota + 1
+	TypeCreateBackupResponse
 
-	TypeRemoveTaskRequest
-	TypeRemoveTaskResponse
+	TypeV2VRequest
+	TypeV2VResponse
+
+	TypeCancelBackupRequest
+	TypeCancelBackupResponse
+
+	TypeQueryBackupRequest
+	TypeQueryBackupResponse
+
+	TypeHealthCheckRequest
+	TypeHealthCheckResponse
 )
 
 // MaxMessageSize defines how large a message can be before we reject it
@@ -48,6 +57,7 @@ func ReadType(r io.Reader) (byte, error) {
 	if _, err := io.ReadFull(r, typ[:]); err != nil {
 		return 0, fmt.Errorf("read message type: %s", err)
 	}
+	fmt.Println("type:", typ[0])
 	return typ[0], nil
 }
 

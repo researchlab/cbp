@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net"
 	"strings"
 
@@ -19,6 +20,7 @@ type server struct {
 
 func (s *server) CreateCustomer(ctx context.Context, in *customer.CustomerRequest) (*customer.CustomerResponse, error) {
 	s.savedCustomers = append(s.savedCustomers, in)
+	fmt.Println("server.print:", in)
 	return &customer.CustomerResponse{Id: in.Id, Success: true}, nil
 }
 
