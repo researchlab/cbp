@@ -75,4 +75,4 @@ plugins: [
 
 ```
 
-![flask-react]('./fr.png')
+![flask-react](./fr.png)
