@@ -7,3 +7,5 @@ python/*/lib/
 python/*/include/
 python/*/*/node_modules/
 python/*/*/__pycache__/
+python/*/*/static/
+python/*/*/public/
