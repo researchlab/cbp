@@ -2,3 +2,8 @@ c++/sources/*
 c++/bin/*
 python/03-sari-dashboard/bin/
 python/03-sari-dashboard/lib/
+python/*/bin/
+python/*/lib/
+python/*/include/
+python/*/*/node_modules/
+python/*/*/__pycache__/
