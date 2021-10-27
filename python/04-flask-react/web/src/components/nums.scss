@@ -1,0 +1,28 @@
+.nums{
+	font-size: 16px;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	span{
+		display:inline-block;
+		width:100px;
+		background:#eee;
+		height:35px;
+		line-height: 35px;
+		margin-right:5px;
+	}
+	button{
+		background: #0aa360; 
+		color: #fff;
+		width: 60px;
+		height: 35px;
+		border:none;
+		border-radius: 3px;
+		font-size:16px;
+		font-weight:500;
+		margin:0 5px;
+	}
+	button:hover{
+		opacity: .8;
+	}
+}

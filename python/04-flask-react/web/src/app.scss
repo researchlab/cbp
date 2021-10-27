@@ -1,0 +1,29 @@
+.page{
+    position: fixed;
+    left:0;
+    right: 0;
+    top:0;
+    bottom: 0;
+    background-color: #ffff;
+}
+.content{
+    position: absolute;
+    left:50%;
+    top: 40%;
+    transform: translate(-50%,-50%);
+		text-align:center;
+		img{
+			width:30vw; // 自适应屏幕大小, 只需要设置宽 就可以， 不要同时设置宽和高，那样会改变图片的比例的, 也可以只设置高
+		}
+		h1{
+			font-size:3.5vw;
+			margin: 10px 0;
+		}
+}
+.title{
+		margin-top: 50px;
+    text-align: center;
+    font-size: 1.5vw;
+    color: #ccc;
+		white-space: nowrap;
+}
