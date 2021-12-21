@@ -9,3 +9,6 @@ python/*/*/node_modules/
 python/*/*/__pycache__/
 python/*/*/static/
 python/*/*/public/
+java/springboot/*/.mvn
+java/springboot/*/target
+java/springboot/*/.idea
