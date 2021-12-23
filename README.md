@@ -7,7 +7,7 @@ Best Coding Practices along with the detailed samples.
 
 - [x] python3
 
-- [ ] java
+- [x] java
 
 - [x] php
 
