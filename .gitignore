@@ -12,3 +12,4 @@ python/*/*/public/
 java/springboot/*/.mvn
 java/springboot/*/target
 java/springboot/*/.idea
+java/springboot/*/logs
