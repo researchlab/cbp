@@ -1,0 +1,22 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    # Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+    # driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 要确保数据库book 已经存在
+    url: jdbc:mysql://localhost:3306/books?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+logging:
+  level:
+    root: error
+    com.study: debug
+  file:
+    name: logs/debug.log
+
