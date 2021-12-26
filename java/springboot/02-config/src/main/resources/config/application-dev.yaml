@@ -1,0 +1,9 @@
+server:
+  port: 8080
+logging:
+  level:
+    root: warn
+    com.study: debug   # 定义自定义包的日志等级
+  file:
+    name: logs/debug.log
+

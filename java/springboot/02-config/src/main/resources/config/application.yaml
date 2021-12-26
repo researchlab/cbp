@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: dev
+
+# 其它配置文件的命名规则
+# application-{envName}.yaml
+# application-dev.yaml
+
+# 基础配置 公共配置
+# 自定义配置字段
+book:
+  name: 互联网世界观
+  author: 李善友
+  isbn: ${random.uuid}
+  description: ${book.name}, 这本书讲的好
+

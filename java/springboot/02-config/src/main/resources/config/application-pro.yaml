@@ -1,0 +1,10 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api
+logging:
+  file:
+    name: logs/error.log
+  level:
+     root: error
+     com.study: warn
