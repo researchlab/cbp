@@ -1,0 +1,34 @@
+[
+    {
+        "customerId": 8001,
+        "productId": 8,
+        "status": 200,
+        "isValid": "true",
+        "expectedStatus": 200,
+        "metaInfo":{
+            "categoaryId": 7788,
+            "segmentId": 9988,
+            "keywords":"test,gao,test2"
+        }
+    },
+    {
+        "customerId": 8002,
+        "productId": 7,
+        "status": 500,
+        "isValid": "true",
+        "expectedStatus": 500,
+        "metaInfo": null
+    },
+    {
+        "customerId": 8003,
+        "productId": "3GAO",
+        "status": 404,
+        "isValid": "false",
+        "expectedStatus": 404,
+        "metaInfo":{
+            "categoaryId": 7700,
+            "segmentId": 9966,
+            "keywords":"test,gao,test3"
+        }
+    }
+]

@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "76311360-be9f-499b-8126-713a49bf7a7b",
+		"name": "Order management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Generate reference",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b811a57-7e26-4114-991b-c0a0cac9b24f",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Should contain reference id\", function () {",
+							"    pm.expect(response.uuid).to.exist;",
+							"});",
+							"",
+							"pm.globals.set(\"referenceId\", response.uuid);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "httpbin.org/uuid",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"uuid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "53620a6d-32f6-4bfd-9263-69c06ed57e37",
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"if(pm.variables.get(\"isValid\") == \"true\"){",
+							"    pm.test(\"Should contain the reference id\", function () {",
+							"        pm.expect(response.json.referenceId).to.eql(pm.globals.get(\"referenceId\"));",
+							"});",
+							"",
+							"    pm.test(\"Should contain the customer id\", function () {",
+							"        pm.expect(response.json.customerId).to.eql(parseInt(pm.variables.get(\"customerId\")));",
+							"});",
+							"",
+							"    pm.test(\"Should contain the product id\", function () {",
+							"        pm.expect(response.json.productId).to.eql(parseInt(pm.variables.get(\"productId\")));",
+							"});  ",
+							"}else{",
+							"    pm.test(\"should not be valid\",function(){",
+							"        pm.expect(response.json).to.be.null;",
+							"    })",
+							"}",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8f608cdf-e555-4479-a769-ae629437bd89",
+						"exec": [
+							"pm.variables.set(\"metaInfo\",JSON.stringify(pm.iterationData.get(\"metaInfo\")));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"referenceId\": \"{{referenceId}}\",\n\t\"customerId\": {{customerId}},\n\t\"productId\": {{productId}},\n\t\"metaInfo\": {{metaInfo}}\n}"
+				},
+				"url": {
+					"raw": "httpbin.org/post",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "53620a6d-32f6-4bfd-9263-69c06ed57e37",
+						"exec": [
+							"pm.test(\"Status code is \" + pm.iterationData.get(\"expectedStatus\"), function () {",
+							"    pm.response.to.have.status(pm.iterationData.get(\"expectedStatus\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "httpbin.org/status/{{status}}",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"status",
+						"{{status}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "427cbb73-dd91-4eef-919e-2e8eed14da57",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "de9ec4a4-472f-46c6-8591-10fbb49d34f6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "911e66e3-4ecc-4465-8270-c5cc6b016413",
+			"key": "customerId",
+			"value": "100",
+			"type": "string"
+		},
+		{
+			"id": "5c4ecd84-94e0-448f-8ac6-c123b2d14f36",
+			"key": "productId",
+			"value": "200",
+			"type": "string"
+		},
+		{
+			"id": "2072a611-b94b-464a-892e-77fe3b05e189",
+			"key": "isValid",
+			"value": "true",
+			"type": "string"
+		}
+	]
+}
