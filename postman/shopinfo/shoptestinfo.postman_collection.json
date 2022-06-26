@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "b777363d-a2ef-4ae4-b518-4200092ca874",
+		"name": "shoptestinfo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b24d7f2-4ccf-41bb-ae60-b916567dc1c2",
+						"exec": [
+							"pm.test(\"gettoken\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var token = jsonData.token;\r",
+							"    pm.environment.set(\"token\",token)\r",
+							"\r",
+							"    pm.expect(token).to.eql(\"GWEBH23E2H324H2G34324GH3242342\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"{{username}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getuserinfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "13efc28d-5f8d-4d7d-bb2c-d0cc03eb49b5",
+						"exec": [
+							"pm.test(\"getuserinfo\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    userid = jsonData.data[0].userid;\r",
+							"    openid = jsonData.data[0].openid;\r",
+							"    pm.environment.set(\"userid\",userid);\r",
+							"    pm.environment.set(\"openid\",openid);\r",
+							"    pm.expect(pm.response.text()).to.include(\"userbalance\");\r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/getuserinfo",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"getuserinfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getproductinfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "25a61562-e839-4716-9ab7-208f46e99190",
+						"exec": [
+							"pm.test(\"getproduct\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    productid = jsonData.data[0].productid;\r",
+							"    pm.environment.set(\"productid\",productid);\r",
+							"\r",
+							"    pm.expect(productid).to.eql(8888);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/getproductinfo?productid={{product}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"getproductinfo"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": "{{product}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addcart",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "078fa2ca-9b51-45fd-9706-f045a3de7d79",
+						"exec": [
+							"pm.test(\"getcart\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var cartid = jsonData.data[0].cartid;\r",
+							"    pm.environment.set(\"cartid\",cartid);\r",
+							"    pm.expect(cartid).to.eql(55673);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userid\":{{userid}},\"openid\":\"{{openid}}\",\"productid\":{{productid}}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/addcart",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"addcart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createorder",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"cartid\":{{cartid}},\"userid\":{{userid}},\"openid\":\"{{openid}}\",\"productid\":{{productid}}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/createorder",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"createorder"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
