@@ -76,3 +76,25 @@ plugins: [
 ```
 
 ![flask-react](./fr.png)
+
+
+## run project 
+
+单独运行前端 
+
+```shell
+cd 04-flask-react/web 
+yarn start 
+```
+
+联合运行项目 
+
+```shell
+cd 04-flask-react/web
+yarn build 
+
+cd 04-flask-react
+source ./bin/activate 
+cd 04-flask-react/src 
+flask run 
+```
