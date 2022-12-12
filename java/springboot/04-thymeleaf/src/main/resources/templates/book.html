@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>书单详情</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+    <div th:object="${book}">
+        <div class="container" style="max-width: 700px;">
+            <h2 class="page-header" style="margin-top: 50px;">详情</h2>
+            <div class="well">
+                <p>
+                    <strong>书名: </strong><span th:text="*{name}">我们三</span>
+                </p>
+                <p>
+                    <strong>作者: </strong><span th:text="${book.author}">杨绛</span>
+                </p>
+                <p>
+                    <strong>说明: </strong><span th:text="${book.description}">这是一本不错的小说</span>
+                </p>
+                <p>
+                    <strong>状态: </strong>
+                    <span th:switch="${book.status}">
+                        <span th:case="0">想读</span>
+                        <span th:case="1">在读</span>
+                        <span th:case="2">已读</span>
+                    </span>
+                </p>
+            </div>
+
+            <div class="alert alert-success" th:unless="*{status == 0}">
+                <strong>不错</strong>, 你已经开始行动啦
+            </div>
+            <div class="alert alert-warning" th:if="*{status == 0}">
+                <strong>注意</strong>, 你还没开始行动
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</body>
+</html>
