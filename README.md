@@ -13,3 +13,6 @@ Best Coding Practices along with the detailed samples.
 
 - [x] rpc
 
+- [x] shell
+
+- [x] rust
