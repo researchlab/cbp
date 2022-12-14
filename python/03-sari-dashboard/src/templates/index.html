@@ -1,0 +1,124 @@
+<!doctype html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+        <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+        <script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/china.js"></script>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+        <title>全国疫情趋势图</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <nav id="sidebar">
+                <div id="sidebar-header">
+									<a href="/">
+                    <i class="bi bi-pc-display-horizontal"
+                        style="padding-right:5px; font-size:1.5em; color:#fff;"></i>
+                   <span>疫情监控</span>
+									</a>
+								</div>
+                <ul>
+                    <li id="1">
+                        <i class="bi bi-microsoft icon"></i><a href="#1">实时监控</a></li>
+                    <li id="2"><i class="bi bi-percent icon"></i><a id='#2' href="#2">新增确诊</a></li>
+                    <li id="3"><i class="bi bi-reception-3 icon"></i><a href="#3">累计确诊</a></li>
+                    <li id="4"><i class="bi bi-shield-fill-exclamation icon"></i><a href="#4">累计死亡</a></li>
+                    <li id="5"><i class="bi bi-sign-railroad-fill icon"></i><a href="#5">省市分布</a></li>
+                </ul>
+            </nav>
+            <div id="main">
+                <div id="header">
+                    <button type="button" id="sidebarCollapse" class="btn-left"><i class="bi
+                            bi-text-left bi-color"></i></button>
+                    <div id="header-search">
+                    <input type="text"/><i class="bi bi-search"></i>
+                    </div>
+                    <div id="header-tools">
+                    <i class="bi bi-bell"></i>
+                    <i class="bi bi-person-fill-gear"></i>
+                    </div>
+                </div>
+                <div id="content">
+                    <div id="content-header">
+                        <div class="card card-conf">
+													<span class="card-body">{{currnumber.conf}}</span>
+                            <span class="card-title">累计确诊</span>
+                        </div>
+                        <div class="card card-suspect">
+													<span class="card-body">{{currnumber.suspect}}</span>
+                            <span class="card-title">现有疑似</span>
+                        </div>
+                        <div class="card card-cure">
+													<span class="card-body">{{currnumber.cure}}</span>
+                            <span class="card-title">治愈出院</span>
+                        </div>
+                        <div class="card card-dead">
+													<span class="card-body">{{currnumber.dead}}</span>
+                            <span class="card-title">累计死亡</span>
+                        </div>
+                    </div>
+                    <div id="content-body">
+                        <div id="map"></div>
+                    </div>
+                </div>
+                <div id="footer">python@flask, bootstrap5, juqery</div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+     <!-- jQuery CDN - Slim version (=without AJAX) -->
+     <script
+             src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script> -->
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('#sidebarCollapse').on('click',function(){
+                    $('#sidebar').toggleClass('active')
+                })
+            })
+            $('#sidebar ul li').click(function(){
+                $('#sidebar ul li').removeClass('active')
+                $(this).addClass('active')
+            })
+						var chart = echarts.init(document.getElementById("map"),
+                    "white",{renderer:"canvas"});
+					  window.addEventListener("resize",function(){
+									chart.resize();
+								})
+						var func = function(url){
+							console.log('url:',url)
+                $.ajax({
+                    type:"GET",
+                    url:url,
+                    dataType:'json',
+                    success: function(result){
+											  chart.clear()
+                        chart.setOption(result)
+                    },
+									error:function(e){
+										console.log("error:", e)
+									}
+								})
+						}
+						$(function(){
+							func("http://localhost:5000/mapChart")
+						})
+						$('#1').click(function(){
+							func("http://localhost:5000/mapChart")
+						})
+						$('#2').click(function(){
+							func("http://localhost:5000/confChart")
+						})
+						$('#3').click(function(){
+							func("http://localhost:5000/confTotalChart")
+						})
+						$('#4').click(function(){
+							func("http://localhost:5000/deadTotalChart")
+						})
+						$('#5').click(function(){
+							console.log('TODO')
+						})
+        </script>
+    </body>
+</html>
