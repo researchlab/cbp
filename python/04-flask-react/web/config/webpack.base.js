@@ -18,7 +18,13 @@ const Appconfig = {
 			filename: 'static/js/[name].js',  // 将js 单独生成到 public/static/js文件夹下
     },
     resolve:{
-        extensions:['.jsx','.tsx','.ts','.js']
+			extensions:['.jsx','.tsx','.ts','.js'],
+			alias:{
+				crypto:false
+			},
+			fallback:{
+				url:false
+			}
     },
     module: {
         rules:[
@@ -170,6 +176,7 @@ const Appconfig = {
 }
 
 module.exports = env => {
+	  console.log('Production:', env.production)
     if (env && env.production){
         return merge(Appconfig, proConfig)
     } else {

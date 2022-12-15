@@ -86,9 +86,10 @@ plugins: [
 cd 04-flask-react/web 
 yarn start 
 ```
+注意，单独运行前端， 此时如果想调用后端，需要通过nginx等服务器来转发后端请求，因为前端发起的请求是基于前端启动的端口如9901, 但是后端服务器的端口不是这个， 那么怎么让这个请求到达后端服务器？就是通过nginx rewrite 转发，如果是多个微服务记得加上转发前缀，以便于区分微服务
 
 联合运行项目 
-
+联合运行，就是yarn build 之后，会把编译好的静态前端文件放入python flask对应的目录下 只需要在运行flask即可， python app.py
 ```shell
 cd 04-flask-react/web
 yarn build 
@@ -97,4 +98,20 @@ cd 04-flask-react
 source ./bin/activate 
 cd 04-flask-react/src 
 flask run 
+```
+
+
+### node.js 版本过高
+
+版本过高导致 webpack有问题，根据提示需要配置如下 
+
+```shell
+// config/webpack.base.js
+const Appconfig = {
+   resolve:{
+			fallback:{
+				url:false
+			}
+    },
+ 
 ```
