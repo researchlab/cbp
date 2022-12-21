@@ -1,0 +1,11 @@
+INFO-root-2022-11-14:info
+WARNING-root-2022-11-14:warning
+ERROR-root-2022-11-14:error
+DEBUG-py-2022-11-14 17:59:58,913:debug
+INFO-py-2022-11-14 17:59:58,913:info
+WARNING-py-2022-11-14 17:59:58,913:warning
+ERROR-py-2022-11-14 17:59:58,913:error
+DEBUG-__main__-2022-11-14 18:03:12,947:debug
+INFO-__main__-2022-11-14 18:03:12,948:info
+WARNING-__main__-2022-11-14 18:03:12,948:warning
+ERROR-__main__-2022-11-14 18:03:12,948:error
