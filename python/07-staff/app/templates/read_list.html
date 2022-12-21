@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
+<script src="{{ url_for('static',filename='js/echarts-wordcloud.min.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<table class="table table-bordered" id="person_list">
+		<thead>
+			<tr>
+				<th>编号</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>职位</th>
+				<th>头像</th>
+				<th>管理选项</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% if data['arr']['data'] %}
+		{% for v in data['arr']['data'] %}
+		<tr>
+			<td>{{ v.id }}</td>
+			<td>{{ v.name }}</td>
+			<td>{{ sex_list[v.sex -1] }}</td>
+			<td>{{ job_list[v.job -1] }}</td>
+			<td>
+				<img src="/static/uploads/{{ v.face }}" class="rounded" style="width: 36px; height:36px;">
+			</td>
+			<td>
+				<a href="{{ url_for('crud.read_one', id=v.id) }}" class="text-success">[详情]</a>&nbsp;
+				<a onclick="if(confirm('确认删除{{ v.name }}吗?')){location.href='/delete?id={{v.id}}'}" href="javascript:void(0)" class="text-danger">[删除]</a>&nbsp;
+				<a href="{{ url_for('crud.update', id=v.id) }}" class="text-info">编辑</a>
+			</td>
+		</tr>
+		{% endfor %}
+		{% endif %}
+		</tbody>
+</table>
+<nav>
+	<ul class="pagination pagination-sm">
+		<li class="page-item{% if data['arr']['page'] == 1 %} disabled{% endif %}"><a class="page-link" href="{{ url_for('crud.read_list',page=1) }}">首页</a></li>
+		<li class="page-item{% if data['arr']['page'] == 1 %} disabled{% endif %}"><a class="page-link" href="{{ url_for('crud.read_list', page=data['arr']['prev']) }}">上一页</a></li>
+		<li class="page-item"><a class="page-link" href="#">{{ data['arr']['page'] }}/{{data['arr']['pagenum']}}</a></li>
+		<li class="page-item{% if data['arr']['page'] == data['arr']['pagenum'] %} disabled{% endif %}"><a class="page-link" href="{{ url_for('crud.read_list',page=data['arr']['next']) }}">下一页</a></li>
+		<li class="page-item{% if data['arr']['page'] == data['arr']['pagenum'] %} disabled{% endif %}"><a class="page-link" href="{{url_for('crud.read_list', page=data['arr']['pagenum'])}}">尾页</a></li>
+	</ul>
+</nav>
+{% endblock %}
+
+{% block foot_content %}
+<div class="row" id="chart-data">
+		<div class="col-md-12">
+			<div class="card">
+					<div class="card-body">
+							<div class="row" id="chart">
+									<div class="col-md-6 pad-right">
+											<div class="border border-info">
+														{{ data['job_pie'] }}
+											</div>
+									</div>
+									<div class="col-md-6 pad-left">
+											<div class="border border-info">
+														{{ data['edu_funnel'] }}
+											</div>	
+									</div>
+									<div class="col-md-6 pad-right">
+											<div class="border border-info">
+													{{ data['sex_bar'] }}
+											</div>
+									</div>
+									<div class="col-md-6 pad-left">
+											<div class="border border-info">
+													{{ data['hobby_wc'] }}
+											</div>
+									</div>
+							</div>
+					</div>
+			</div>
+		</div>
+</div>
+{% endblock %}

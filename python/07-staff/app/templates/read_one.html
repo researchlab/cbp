@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<table class="table table-sm table-bordered">
+	<tbody>
+			<tr>
+				<td colspan="4" class="text-center text-success">员工详细信息</td>	
+			</tr>	
+			<tr>
+				<td colspan="4" class="text-center">
+					<img style="width:150px;height:150px;"src="/static/uploads/{{ data['emp'].face }}" class="rounded-circle">
+				</td>
+			</tr>
+			<tr>
+				<td class="text-primary text-right">姓名:</td>	
+				<td>{{ data['emp'].name }}</td>
+				<td class="text-primary text-right">职位:</td>
+				<td>{{job_list[data['emp'].job-1]}}</td>
+			</tr>
+			<tr>
+				<td class="text-primary text-right">学历:</td>
+				<td>{{ edu_list[data['emp'].edu-1] }}</td>
+				<td class="text-primary text-right">生日:</td>
+				<td>{{ data['emp'].birth }}</td>
+			</tr>
+			<tr>
+				<td class="text-primary text-right">邮箱:</td>	
+				<td>{{ data['emp'].email }}</td>
+				<td class="text-primary text-right">手机:</td>
+				<td>{{data['emp'].phone}}</td>
+			</tr>
+			<tr>
+				<td class="text-primary text-right">性别:</td>
+				<td>{{sex_list[data['emp'].sex-1]}}</td>
+				<td class="text-primary text-right">爱好:</td>
+				<td>
+						{% for v in data['hob'] %}	
+						<span class="badge badge-pill badge-light">{{ hobby_list[v.hobby_key-1] }}</span>
+						{% endfor %}
+				</td>
+			</tr>
+			<tr>
+					<td colspan="4" class="text-center">
+						<div class="alert alert-info">
+									{{ data['emp'].info }}	
+						</div>	
+					</td>	
+			</tr>
+	</tbody>
+</table>
+<a class="btn btn-info" href="update.html">修改信息</a>
+{% endblock %}

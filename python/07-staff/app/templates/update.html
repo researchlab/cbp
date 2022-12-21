@@ -1,0 +1,168 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form id="form-data">
+		<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+							<label for="input_name">姓名</label>
+							<input type="text" value="{{ data['emp'].name }}" name="name" class="form-control" id="input_name">
+							<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+							<input type="hidden" name="id" value="{{ data['emp'].id }}">
+							<p class="text-danger" id="error_name"></p>
+					</div>
+				</div>
+				<div class="col-md-6">
+						<div class="form-group">
+								<label for="input_job">职业</label>
+								<select class="form-control" name="job" id="input_job">
+									<option value="0">--请选择职位--</option>
+									{% for k,v in job_param %}
+									<option value="{{ k+1 }}" {% if data['emp'].job == k+1 %} selected{% endif %}>{{ v }}</option>
+									{% endfor %}
+								</select>
+								<p class="text-danger" id="error_job"></p>
+						</div>
+				</div>
+				<div class="col-md-12">
+						<div class="form-group">
+                <label>性别</label>
+                <br>
+                {% for k,v in sex_param %}
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio"
+                           id="input_sex{{ k + 1 }}"
+                           name="sex"
+                           value="{{ k + 1 }}"
+                           class="custom-control-input"{% if data['emp'].sex == k+1 %} checked{% endif %}>
+                    <label class="custom-control-label"
+                           for="input_sex{{ k + 1 }}">
+                        {{ v }}
+                    </label>
+                </div>
+                {% endfor %}
+                <p class="text-danger" id="error_sex"></p>
+						</div>
+				</div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="input_edu">学历</label>
+                <select class="form-control"
+                        id="input_edu"
+                        name="edu"
+                >
+                    <option value="0">--请选择学历--</option>
+                    {% for k,v in edu_param %}
+                    <option value="{{ k + 1 }}"{% if data['emp'].edu == k+1 %} selected{% endif %}>{{ v }}</option>
+                    {% endfor %}
+                </select>
+                <p class="text-danger" id="error_edu"></p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="input_birth">生日</label>
+                <input value="{{ data['emp'].birth }}" type="date" name="birth" class="form-control" id="input_birth">
+                <p class="text-danger" id="error_birth"></p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="input_email">邮箱</label>
+                <input value="{{ data['emp'].email }}" type="email" name="email" class="form-control" id="input_email">
+                <p class="text-danger" id="error_email"></p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="input_phone">手机</label>
+                <input value="{{ data['emp'].phone }}" type="text" name="phone" class="form-control" id="input_phone">
+                <p class="text-danger" id="error_phone"></p>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>爱好</label>
+                <br>
+                {% for k,v in hobby_param %}
+                <div class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox"
+                           name="hobby"
+                           value="{{ k + 1 }}"
+                           class="custom-control-input"
+                           id="input_hobby{{ k + 1 }}"{% if k+1 in data['hob'] %} checked{% endif %}>
+                    <label class="custom-control-label"
+                           for="input_hobby{{ k + 1 }}">
+                        {{ v }}
+                    </label>
+                </div>
+                {% endfor %}
+                <p class="text-danger" id="error_hobby"></p>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="input_info">介绍</label>
+                <textarea class="form-control"
+                          id="input_info"
+                          name="info"
+                          rows="6"
+                >{{ data['emp'].info }}</textarea>
+                <p class="text-danger" id="error_info"></p>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="input_face">头像</label>
+                <input type="file" class="form-control-file" id="file_face">
+                <input value="{{ data['emp'].face }}" type="hidden" name="face" id="input_face">
+                <hr>
+                <div id="image_face">
+                    <img style="width: 200px;height: 200px;" src="/static/uploads/{{ data['emp'].face }}">
+                </div>
+                <hr>
+                <a class="btn btn-info" href="javascript:void(0)" id="upload_face">上传头像</a>
+                <p class="text-danger" id="error_face"></p>
+            </div>
+        </div>
+				<div class="col-md-12">
+							<div class="form-group">
+								<a id="btn-sub" class="btn btn-success" href="javascript:void(0)">保存信息</a>
+							</div>
+				</div> 
+		</div>
+</form>
+{% endblock %}
+
+{% block foot %}
+<script src="{{url_for('static',filename='js/upload.js')}}"></script>
+<script>
+	$(document).ready(function(){
+		upload("face", 200, 200, "/upload/");
+		$("#btn-sub").click(function(){
+			var data=$("#form-data").serialize();
+			$.ajax({
+				url: "/update/",
+				type: "POST",
+				dataType: "json",
+				data: data,
+				success:function(res){
+						if (res.code == 1){
+							location.href="/read/list/";
+						} else {
+							var fields = ["id","name","job","sex","edu","hobby","birth","email","phone","info","face"];
+							for (var k in fields){
+								if (typeof res[fields[k]] === "undefined") {
+									$('#error_'+fields[k]).empty();
+								}else{
+									$("#error_"+fields[k]).empty();
+									$("#error_"+fields[k]).append(res[fields[k]]);
+								}
+							}
+						}
+				}
+			})
+		})
+	})
+</script>
+{% endblock %}

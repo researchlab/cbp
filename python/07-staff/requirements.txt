@@ -1,0 +1,6 @@
+mysql-connector-python
+flask
+flask-wtf
+sqlalchemy
+pyecharts
+email_validator
